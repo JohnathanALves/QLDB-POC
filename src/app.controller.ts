@@ -10,4 +10,13 @@ export class AppController {
     console.log({ txId });
     return this.appService.getTransactionById(txId);
   }
+
+  @Get('/user/:userId/vault')
+  async getUserVault(
+    @Param() { userId }: { userId: string },
+    @Query() { vault }: { vault: string },
+  ): Promise<any> {
+    console.log({ userId, vault });
+    return this.appService.getUserVault(userId, vault);
+  }
 }

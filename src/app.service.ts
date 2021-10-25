@@ -13,4 +13,14 @@ export class AppService {
     });
     return result;
   }
+
+  async getUserVault(userId: string, vault: string): Promise<any> {
+    const result = await this.qldbDriver.executeLambda(async (txn) => {
+      return txn.execute('SELECT ? FROM Users WHERE userId = ?', vault, userId);
+    });
+
+    const [vaultValue] = result.getResultList();
+
+    return { [vault]: vaultValue ?? 0 };
+  }
 }
